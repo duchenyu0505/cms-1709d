@@ -12,7 +12,7 @@
 	<div class="container-fluid">
 		<div class="col-4 offset-4 loginForm">
 			<h3>欢迎使用CMS系统</h3>
-			<form action="/admin/home">
+			<form action="home" method="post">
 			  <div class="form-group">
 			    <input type="text" class="form-control" placeholder="请输入用户名...">
 			    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
