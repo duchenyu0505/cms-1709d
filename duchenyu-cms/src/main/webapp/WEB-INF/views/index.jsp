@@ -7,6 +7,6 @@
 <title>前台页面</title>
 </head>
 <body>
-
+		前台首页
 </body>
 </html>
