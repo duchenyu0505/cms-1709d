@@ -17,8 +17,8 @@ public class User implements Serializable{
 	private Integer score;
 	private String role;
 	private String url;
-	private Date create_time;
-	private Date update_time;
+	private Date createtime;
+	private Date updatetime;
 	public Integer getId() {
 		return id;
 	}
@@ -79,20 +79,20 @@ public class User implements Serializable{
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public Date getCreate_time() {
-		return create_time;
+	public Date getCreatetime() {
+		return createtime;
 	}
-	public void setCreate_time(Date create_time) {
-		this.create_time = create_time;
+	public void setCreate_time(Date createtime) {
+		this.createtime = createtime;
 	}
-	public Date getUpdate_time() {
-		return update_time;
+	public Date getUpdatetime() {
+		return updatetime;
 	}
-	public void setUpdate_time(Date update_time) {
-		this.update_time = update_time;
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
 	}
 	public User(Integer id, String username, String password, String nickname, String birthday, Integer gender,
-			Integer locked, Integer score, String role, String url, Date create_time, Date update_time) {
+			Integer locked, Integer score, String role, String url, Date createtime, Date updatetime) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -104,8 +104,8 @@ public class User implements Serializable{
 		this.score = score;
 		this.role = role;
 		this.url = url;
-		this.create_time = create_time;
-		this.update_time = update_time;
+		this.createtime = createtime;
+		this.updatetime = updatetime;
 	}
 	public User() {
 		super();
@@ -114,7 +114,7 @@ public class User implements Serializable{
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", nickname=" + nickname
 				+ ", birthday=" + birthday + ", gender=" + gender + ", locked=" + locked + ", score=" + score
-				+ ", role=" + role + ", url=" + url + ", create_time=" + create_time + ", update_time=" + update_time
+				+ ", role=" + role + ", url=" + url + ", createtime=" + createtime + ", updatetime=" + updatetime
 				+ "]";
 	}
 
