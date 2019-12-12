@@ -20,4 +20,7 @@ public interface UserDao {
 		int deleteById(@Param("user")User user);
 		
 		int deleteByIds(@Param("ids")String ids);
+		
+		//修改locked字段
+		int updateLocked(@Param("userId")Integer userId,@Param("locked")int locked);
 }
