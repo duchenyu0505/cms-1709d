@@ -1,3 +1,4 @@
+  
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("UTF-8");
@@ -29,7 +30,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
   	<table class="table">
   <thead>
     <tr>
-      <th scope="col"><input type="checkbox" value="" id="defaultCheck1"></th>
+      <th scope="col"><input type="checkbox" value="" id="chkALL" name="chkALL"></th>
       <th scope="col">#</th>
       <th scope="col">标题</th>
       <th scope="col">所属频道</th>
@@ -42,7 +43,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
   </thead>
   <tbody>
     <tr>
-      <th><input type="checkbox" value="" id="defaultCheck1"></th>
+      <th><input type="checkbox" value="" name="chk_list"></th>
       <th scope="row">1</th>
       <td>卖电动车赚钱有多难？</td>
       <td>国际</td>
@@ -56,7 +57,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
       </td>
     </tr>
     <tr>
-      <td><input type="checkbox" value="" id="defaultCheck1"></td>
+      <td><input type="checkbox" value="" name="chk_list"></td>
       <td scope="row">2</td>
       <td>卖电动车赚钱有多难？</td>
       <td>国际</td>
@@ -70,7 +71,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
       </td>
     </tr>
     <tr>
-      <td><input type="checkbox" value="" id="defaultCheck1"></td>
+      <td><input type="checkbox" value="" name="chk_list"></td>
       <td scope="row">3</td>
       <td>卖电动车赚钱有多难？</td>
       <td>国际</td>
@@ -102,6 +103,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 	  </ul>
 	</nav>
 </div>
+<script src="/public/js/checkbox.js"></script>
 <script>
 	function query(){
 		var params = $("form").serialize();
@@ -111,4 +113,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 	function add(){
 		openPage("/article/add?content1=content");
 	}
+	
+	
+	
 </script>
