@@ -1,5 +1,7 @@
 package com.duchenyu.cms.controller.admin;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.duchenyu.cms.pojo.Article;
+import com.duchenyu.cms.pojo.Channel;
 import com.duchenyu.cms.pojo.User;
+import com.duchenyu.cms.service.ArticleService;
 import com.duchenyu.cms.service.UserService;
 import com.github.pagehelper.PageInfo;
 
@@ -20,6 +25,8 @@ public class AdminController {
 	@Autowired
 	private UserService service;
 	
+	@Autowired
+	private ArticleService articleService;
 	@RequestMapping("/")
 	public String login() {
 		return "admin/login";
@@ -53,19 +60,16 @@ public class AdminController {
 	
 	//文章管理
 	@RequestMapping("/article")
-	public String article() {
+	public String article(Article article,Model model,
+			@RequestParam(value="pageNum",defaultValue="1") int pageNum,@RequestParam(value="pageSize",defaultValue="3") int pageSize) {
+		//设置文章状态
+		article.setStatusIds("0,-1,1");
+		PageInfo<Article> pageInfo = articleService.getPageInfo(article,pageNum,pageSize);
+		model.addAttribute("pageInfo1", pageInfo);
+		List<Channel> channelList = articleService.getChannelList();
+		model.addAttribute("channelList", channelList);
 		return "admin/article";
 	}
-	
-	
-	//系统管理
-	@RequestMapping("/settings")
-	public String settings() {
-		return "admin/settings";
-	}
-	
-	
-	
 	
 	@ResponseBody
 	@RequestMapping("/user/unlocked")

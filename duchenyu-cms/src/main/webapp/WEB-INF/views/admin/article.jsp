@@ -1,7 +1,7 @@
-  
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
   	<form class="form-inline" id="queryForm">
 	  <div class="form-group mx-sm-3 mb-2">
 	    <input type="text" name="name" class="form-control" placeholder="请输入文章标题">
@@ -27,7 +27,7 @@
 	        <option value="-1" <c:if test="${article.status==-1 }">selected="selected"</c:if>>审核未通过</option>
 	      </select>
 	  </div>
-	  <input type="hidden" name="pageNum" value="1">
+	  <input type="hidden" name="pageNum" value="${pageInfo.pageNum }">
 	  <button type="button" class="btn btn-primary mb-2" onclick="query()">查询</button>
 	</form>
   
@@ -46,27 +46,74 @@
     </tr>
   </thead>
   <tbody>
-	<c:forEach items="${pageInfo.list }" var="item">
+	<c:forEach items="${pageInfo1.list }" var="item">
        <tr>
 	      <th><input type="checkbox" value="${item.id }" name="chk_list"></th>
 	      <th scope="row">${item.id }</th>
-	      <td>${item.title }</td>
+	      <td title="${item.title }">${fn:substring(item.title,0,10) }</td>
 	      <td>${item.channelName }</td>
 	      <td>${item.categoryName }</td>
 	      <td>${item.hot>0?"是":"否"}</td>
 	      <td>${item.status==1?"已审核":item.status==0?"未审核":"审核未通过"}</td>
 	      <td><fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd HH:mm"/></td>
 	      <td>
-	      	<button type="button" class="btn btn-primary">审核</button>
+	      	<button type="button" class="btn btn-primary" onclick="check('${item.id}')">审核</button>
 	      	<button type="button" class="btn btn-primary" onclick="addHot('${item.id}')">加热</button>
+	      	<button type="button" class="btn btn-primary" onclick="view('${item.id}')">查看</button>
 	      </td>
 	    </tr>
    	</c:forEach>
   </tbody>
 </table>
 <jsp:include page="../common/page.jsp"></jsp:include>
+<nav aria-label="Page navigation example col-5" style="margin-right: 10px;">
+		<button type="button" class="btn btn-primary" onclick="add()">添加</button>
+		<button type="button" class="btn btn-primary">批删</button>
+	</nav>
+<div class="alert alert-danger" role="alert" style="display: none"></div>
+
+<div class="modal" tabindex="-1" role="dialog" id="checkModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">文章审核</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="checkForm">
+        	<input type="hidden" id="id" name="id">
+        	<div class="form-check">
+			  <input class="form-check-input" type="radio" name="status" value="1" checked>
+			  <label class="form-check-label" for="exampleRadios1">
+			    	审核通过
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="radio" name="status" value="-1" checked>
+			  <label class="form-check-label" for="exampleRadios1">
+			    	审核不通过
+			  </label>
+			</div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="toCheck();">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="/public/js/checkbox.js"></script>
+
 <script>
+function openPage(url){
+	$.get(url,{},function(res){
+		$(".tab-content").html(res);
+	},"html")
+}
 	function query(){
 		var params = $("form").serialize();
 		reload(params);
@@ -83,8 +130,28 @@
 	
 	function addHot(id){
 		$.post("/admin/article/addHot",{id:id},function(res){
-			reload();
+			query();
 		});
+	}
+	
+	function check(id){
+		$('#checkModal').modal('show');
+		$('#checkForm #id').val(id);
+	}
+	
+	function toCheck(){
+		var data = $('#checkForm').serialize();
+		console.log("data:"+data);
+		$.post("/admin/article/update/status",data,function(res){
+			$('#checkModal').modal('hide');
+			$('.alert').html("审核通过");
+			$('.alert').show();
+			query();
+		});
+	}
+	
+	function view(id){
+		window.open("/article/"+id+".html");
 	}
 	
 </script>

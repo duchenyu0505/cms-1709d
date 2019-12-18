@@ -1,5 +1,6 @@
 package com.duchenyu.cms.common;
 
+
 import java.io.Serializable;
 
 /**

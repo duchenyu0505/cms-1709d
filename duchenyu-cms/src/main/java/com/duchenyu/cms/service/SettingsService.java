@@ -3,11 +3,12 @@ package com.duchenyu.cms.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.duchenyu.cms.dao.SettingsDao;
 import com.duchenyu.cms.pojo.Settings;
 
-
+@Service
 public class SettingsService {
 	@Autowired
 	private SettingsDao settingsDao;

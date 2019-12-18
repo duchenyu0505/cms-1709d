@@ -74,7 +74,7 @@
 	<aop:config>
 		<!-- 配置切点表达式 -->
 		<aop:pointcut
-			expression="execution(* com.bw.cms.service.impl.*.*(..))" id="pointcut" />
+			expression="execution(* com.duchenyu.cms.service.impl.*.*(..))" id="pointcut" />
 		<!-- 关联事务 -->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut" />
 

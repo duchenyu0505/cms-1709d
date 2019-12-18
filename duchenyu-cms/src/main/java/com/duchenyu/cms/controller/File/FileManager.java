@@ -57,6 +57,7 @@ public class FileManager {
 	@RequestMapping("upfile")
 	@ResponseBody
 	public FileResult upFile(HttpServletRequest request, @RequestParam("fileName") MultipartFile imgFile) throws FileUploadException {
+		System.out.println(picRoot);
 		return upload(request,imgFile);
 	}
 	@SuppressWarnings("unused")
@@ -78,7 +79,7 @@ public class FileManager {
 		extMap.put("file", "doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2");
 
 		// 最大文件大小
-		long maxSize = 1000000;
+		long maxSize = 1024000000;
 
 		// response.setContentType("text/html; charset=UTF-8");
 
