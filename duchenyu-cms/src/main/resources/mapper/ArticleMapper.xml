@@ -63,7 +63,7 @@
 		select count(1) from cms_article
 	</select>
 	
-	<insert id="insert" parameterType="com.zhangguoming.cms.pojo.Article">
+	<insert id="insert" parameterType="Article">
 		insert into cms_article (title, picture, channel_id, 
 	      category_id, user_id, hits, 
 	      hot, status, deleted, 
