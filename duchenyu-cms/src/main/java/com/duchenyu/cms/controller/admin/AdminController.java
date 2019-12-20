@@ -121,4 +121,17 @@ public class AdminController {
 		}
 		return JsonResult.fail(500, "未知错误");
 	}
+	/**
+	 * @Title: updateArticleStatus   
+	 * @Description: 修改文章状态   
+	 * @param: @param article
+	 * @param: @return      
+	 * @return: boolean      
+	 * @throws
+	 */
+	@RequestMapping("/article/update/status")
+	@ResponseBody
+	public boolean updateArticleStatus(Article article) {
+		return articleService.updateStatus(article.getId(), article.getStatus());
+	}
 }

@@ -22,7 +22,7 @@
 	<!-- 不拦截静态资源 -->
 	<mvc:default-servlet-handler />
 	<!-- mvc注解驱动 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven conversion-service="conversionService" />
 	
 	<!-- 日期转换器 -->
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">

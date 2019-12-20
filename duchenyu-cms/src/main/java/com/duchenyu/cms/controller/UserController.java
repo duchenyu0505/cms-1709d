@@ -157,9 +157,16 @@ public class UserController {
 	 */
 	@RequestMapping(value="settings",method=RequestMethod.POST)
 	@ResponseBody
-	public JsonResult settings(User user) {
-		userService.update(user);
-		return JsonResult.sucess();
+	public JsonResult settings(User user,HttpSession session) {
+		//修改用户信息
+		boolean result = userService.update(user);
+		if(result) {
+			//跟新session中的用户信息
+			User userInfo = userService.getById(user.getId());
+			session.setAttribute(CmsConstant.UserSessionKey, userInfo);
+			return JsonResult.sucess();
+		}
+		return JsonResult.fail(100002, "修改失败");
 	}
 	
 	@RequestMapping("comment")
@@ -168,8 +175,12 @@ public class UserController {
 	}
 	
 	@RequestMapping("article")
-	public String article(Article article,Model model,
+	public String article(Article article,Model model,HttpSession session,
 			@RequestParam(value="pageNum",defaultValue="1") int pageNum,@RequestParam(value="pageSize",defaultValue="3") int pageSize) {
+		//设置用户Id
+		User userInfo = (User)session.getAttribute(CmsConstant.UserSessionKey);
+		article.setUserId(userInfo.getId());
+		//查询文章
 		PageInfo<Article> pageInfo = articleService.getPageInfo(article,pageNum,pageSize);
 		model.addAttribute("pageInfo", pageInfo);
 		List<Channel> channelList = articleService.getChannelList();

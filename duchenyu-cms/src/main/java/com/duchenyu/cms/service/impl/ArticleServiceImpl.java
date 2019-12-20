@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.duchenyu.cms.dao.ArticleDao;
 import com.duchenyu.cms.dao.CategoryDao;
@@ -14,7 +15,7 @@ import com.duchenyu.cms.pojo.Channel;
 import com.duchenyu.cms.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
+@Transactional
 @Service
 public class ArticleServiceImpl implements ArticleService {
 	@Autowired
@@ -108,6 +109,12 @@ public class ArticleServiceImpl implements ArticleService {
 		PageHelper.startPage(pageNum, 1);
 		List<Article> articleList = articleDao.selectListByChannelIdAndCateId(channelId,cateId);
 		 return new PageInfo<>(articleList);
+	}
+
+	@Override
+	public List<Article> getNewList(int num) {
+		// TODO Auto-generated method stub
+		return articleDao.selectNewList(num);
 	}
 
 }

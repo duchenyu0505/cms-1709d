@@ -10,21 +10,37 @@ public class Comment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private Integer artcleId;
+	private Integer articleId; 
 	private Integer userId;
 	private String content;
 	private String created;
+	private String nickname;
+	private String headimg;
+	
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getHeadimg() {
+		return headimg;
+	}
+	public void setHeadimg(String headimg) {
+		this.headimg = headimg;
+	}
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Integer getArtcleId() {
-		return artcleId;
+	public Integer getArticleId() {
+		return articleId;
 	}
-	public void setArtcleId(Integer artcleId) {
-		this.artcleId = artcleId;
+	public void setArticleId(Integer articleId) {
+		this.articleId = articleId;
 	}
 	public Integer getUserId() {
 		return userId;
@@ -47,22 +63,35 @@ public class Comment implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	public Comment(Integer id, Integer artcleId, Integer userId, String content, String created) {
+	public Comment(Integer id, Integer articleId, Integer userId, String content, String created) {
 		super();
 		this.id = id;
-		this.artcleId = artcleId;
+		this.articleId = articleId;
 		this.userId = userId;
 		this.content = content;
 		this.created = created;
+	}
+	
+	public Comment(Integer id, Integer articleId, Integer userId, String content, String created, String nickname,
+			String headimg) {
+		super();
+		this.id = id;
+		this.articleId = articleId;
+		this.userId = userId;
+		this.content = content;
+		this.created = created;
+		this.nickname = nickname;
+		this.headimg = headimg;
 	}
 	public Comment() {
 		super();
 	}
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", artcleId=" + artcleId + ", userId=" + userId + ", content=" + content
-				+ ", created=" + created + "]";
+		return "Comment [id=" + id + ", articleId=" + articleId + ", userId=" + userId + ", content=" + content
+				+ ", created=" + created + ", nickname=" + nickname + ", headimg=" + headimg + "]";
 	}
+	
 	
 	
 

@@ -9,9 +9,18 @@
 		</div>
 	</div>
 	<div class="form-group row">
+		<label for="inputEmail3" class="col-sm-2 col-form-label">我的头像</label>
+		<div class="col-sm-10">
+			<jsp:include page="../common/uploadImg.jsp">
+				<jsp:param value="headimg" name="feildName"/>
+				<jsp:param value="${user.headimg }" name="feildValue"/>
+			</jsp:include>
+		</div>
+	</div>	
+	<div class="form-group row">
 		<label for="inputEmail3" class="col-sm-2 col-form-label">我的生日</label>
 		<div class="col-sm-3">
-			<input type="date" name="birthday" value="${user.birthday }">
+			<input type="date" name="birthday" value="${user.birthdayStr }">
 		</div>
 	</div>
 	<div class="form-group row">
@@ -40,9 +49,11 @@
 	</div>
 	<div class="alert alert-danger" role="alert" style="display: none"></div>
 </form>
+
 <script type="text/javascript">
 	$("#gender").val("${gender}");
 	function save() {
+		alert($("form").serialize())
 		$.post("/user/settings",$("form").serialize(),function(res){
 			if(res.result){
 				$(".alert").html("设置成功");
