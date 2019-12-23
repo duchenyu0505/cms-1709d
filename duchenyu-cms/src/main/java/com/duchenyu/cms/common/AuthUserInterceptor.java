@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.duchenyu.cms.pojo.User;
+import com.duchenyu.cms.service.UserService;
+
 public class AuthUserInterceptor implements HandlerInterceptor{
 
 	@Override
@@ -13,6 +16,12 @@ public class AuthUserInterceptor implements HandlerInterceptor{
 		Object userInfo = request.getSession().getAttribute(CmsConstant.UserSessionKey);
 		if(userInfo!=null) {
 			return true;
+		}
+		String cookieByName = CookieUtil.getCooieByName(request,"username");
+		if(cookieByName!=null) {
+			UserService userService = SpringBeanUtils.getBean(UserService.class);
+			userInfo = userService.getByUsername(cookieByName);
+			request.getSession().setAttribute(CmsConstant.UserSessionKey, userInfo);
 		}
 	    response.sendRedirect("/user/login");
 		return false;

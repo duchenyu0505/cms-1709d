@@ -2,6 +2,7 @@ package com.duchenyu.cms.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dcy.StringUtil;
 import com.duchenyu.cms.common.CmsConstant;
 import com.duchenyu.cms.common.CmsMd5Util;
+import com.duchenyu.cms.common.CookieUtil;
 import com.duchenyu.cms.common.JsonResult;
 import com.duchenyu.cms.pojo.Article;
 import com.duchenyu.cms.pojo.Channel;
@@ -56,7 +58,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="login",method=RequestMethod.POST)
 	@ResponseBody
-	public Object login(User user,HttpSession session) {
+	public Object login(User user,HttpSession session,HttpServletResponse response) {
 		//判断用户名和密码
 		if(StringUtil.isBlank(user.getUsername()) || StringUtil.isBlank(user.getPassword())) {
 			return JsonResult.fail(1000, "用户名和密码不能为空");
@@ -71,9 +73,14 @@ public class UserController {
 		String string2md5 = CmsMd5Util.string2MD5(user.getPassword());
 		if(string2md5.equals(userInfo.getPassword())) {
 			session.setAttribute(CmsConstant.UserSessionKey, userInfo);
+			if("1".equals(user.getIsMima())) {
+				int maxAge=1000*60*60*24;
+				CookieUtil.addCookie(response,"username",user.getUsername(), null, null,maxAge);
+			}
+			
 			return JsonResult.sucess();
 		}
-		return JsonResult.fail(500, "未知错误");
+		return JsonResult.fail(1000, "用户名或密码错误");
 	}
 	/**
 	 * @Title: logout   
@@ -87,6 +94,7 @@ public class UserController {
 	@RequestMapping("logout")
 	public Object logout(HttpServletResponse response,HttpSession session) {
 		session.removeAttribute(CmsConstant.UserSessionKey);
+		CookieUtil.addCookie(response, "username", null, null, null, 0);
 		return "redirect:/";
 	}
 	
@@ -188,6 +196,17 @@ public class UserController {
 		return "user/article";
 	}
 	
+	
+	//验证用户是否登录
+	@RequestMapping(value = "isLogin")
+	public @ResponseBody Object isLogin(HttpSession session) {
+		Object userInfo=session.getAttribute(CmsConstant.UserSessionKey);
+		if(userInfo!=null) {
+			return JsonResult.sucess();
+		}
+		
+		return JsonResult.fail(CmsConstant.unLoginErrorCode,"未登录");
+	}
 	
 	
 	

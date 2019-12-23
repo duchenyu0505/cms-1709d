@@ -30,7 +30,10 @@
 		WHERE article.user_id=user.id and article.deleted=0 AND article.`status`=1 AND article.hot>0
 		order by article.hot desc
 	</select>
+	<update id="addTousu">
+	update cms_article set tousuCnt=tousuCnt where id=#{id}
 	
+	</update>
 	<select id="selectNewList" resultType="Article">
 		select article.*,article.channel_id channelId,article.user_id userId,article.category_id categoryId
 		from cms_article article
