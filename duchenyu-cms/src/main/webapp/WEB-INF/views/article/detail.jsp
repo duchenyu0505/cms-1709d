@@ -119,7 +119,7 @@
 				alert("评论内容不能为空");
 				return;
 			}
-			$.post("/comment/add",{articleid:articleId,content:content},function(res){
+			$.post("/comment/add",{articleId:articleId,content:content},function(res){
 				if(res.result){
 					$("#content").val("");
 					gotoPage(1);

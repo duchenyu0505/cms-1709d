@@ -77,6 +77,9 @@ public class IndexController {
 		/** 查询文章 **/
 		Article article = articleService.getById(id);
 		model.addAttribute("article", article);
+		if("3".equals(article.getStatus()+"")) {
+			return "article/error";
+		}
 		/** 查询用户 **/
 		User user = userService.getById(article.getUserId());
 		model.addAttribute("user", user);

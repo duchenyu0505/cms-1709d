@@ -46,7 +46,7 @@
     </tr>
   </thead>
   <tbody>
-	<c:forEach items="${pageInfo1.list }" var="item">
+	<c:forEach items="${pageInfo.list }" var="item">
        <tr>
 	      <th><input type="checkbox" value="${item.id }" name="chk_list"></th>
 	      <th scope="row">${item.id }</th>
@@ -54,12 +54,13 @@
 	      <td>${item.channelName }</td>
 	      <td>${item.categoryName }</td>
 	      <td>${item.hot>0?"是":"否"}</td>
-	      <td>${item.status==1?"已审核":item.status==0?"未审核":"审核未通过"}</td>
+	      <td>${item.status==1?"已审核":item.status==0?"未审核":item.status==3?"禁用":"审核未通过"}</td>
 	      <td><fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd HH:mm"/></td>
 	      <td>
 	      	<button type="button" class="btn btn-primary" onclick="check('${item.id}')">审核</button>
 	      	<button type="button" class="btn btn-primary" onclick="addHot('${item.id}')">加热</button>
 	      	<button type="button" class="btn btn-primary" onclick="view('${item.id}')">查看</button>
+	      	<button type="button" class="btn btn-primary" onclick="dot('${item.id}')">禁用</button>
 	      </td>
 	    </tr>
    	</c:forEach>
@@ -152,6 +153,15 @@ function openPage(url){
 	
 	function view(id){
 		window.open("/article/"+id+".html");
+	}
+	
+	function dot(id) {
+		$.post("/admin/article/update/status",{id:id,status:3},function(res){
+			$('#checkModal').modal('hide');
+			$('.alert').html("文章被禁用");
+			$('.alert').show();
+			query();
+		});
 	}
 	
 </script>

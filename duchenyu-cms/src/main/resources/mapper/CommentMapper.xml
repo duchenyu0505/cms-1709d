@@ -4,7 +4,7 @@
 	<select id="select" resultType="Comment">
 		select c.*,u.nickname,u.headimg 
 		from cms_comment c,cms_user u where c.userId=u.id
-		<if test="comment.articleId!=null">
+		<if test="comment.articleid!=null">
 			and c.articleId=#{comment.articleId}
 		</if>
 		order by created desc
@@ -20,9 +20,9 @@
 	
 	<insert id="insert">
 		insert into cms_comment (articleId, userId, content, 
-      created,headimg,nickname)
+      created)
     values (#{comment.articleId}, #{comment.userId}, #{comment.content}, 
-      #{comment.created},#{comment.headimg},#{comment.nickname})
+      #{comment.created})
 	</insert>
 	
 	<update id="update">
