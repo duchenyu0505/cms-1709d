@@ -17,11 +17,12 @@ public class AuthUserInterceptor implements HandlerInterceptor{
 		if(userInfo!=null) {
 			return true;
 		}
-		String cookieByName = CookieUtil.getCooieByName(request,"username");
+		
+		String cookieByName = CookieUtil.getCooieByName(request, "username");
 		if(cookieByName!=null) {
 			UserService userService = SpringBeanUtils.getBean(UserService.class);
 			userInfo = userService.getByUsername(cookieByName);
-			request.getSession().setAttribute(CmsConstant.UserSessionKey, userInfo);
+			request.getSession().setAttribute(CmsConstant.UserSessionKey,userInfo);
 		}
 	    response.sendRedirect("/user/login");
 		return false;

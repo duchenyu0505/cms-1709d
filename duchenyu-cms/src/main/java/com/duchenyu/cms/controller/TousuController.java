@@ -21,7 +21,7 @@ public class TousuController {
 	private TousuService tousuService;
 	/**
 	 * @Title: add   
-	 * @Description: 添加评论 
+	 * @Description: 投诉
 	 * @param: @param comment
 	 * @param: @return      
 	 * @return: JsonResult      
@@ -42,5 +42,6 @@ public class TousuController {
 		
 		return JsonResult.fail(10000, "未知错误");
 	}
+	
 	
 }

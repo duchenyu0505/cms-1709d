@@ -37,7 +37,6 @@ public class CommentController {
 		if(userInfo==null) {
 			return JsonResult.fail(CmsConstant.unLoginErrorCode, "用户未登录");
 		}
-		System.out.println(userInfo+"=========");
 		comment.setUserId(userInfo.getId());
 		comment.setHeadimg(userInfo.getHeadimg());
 		boolean result = commentService.add(comment);

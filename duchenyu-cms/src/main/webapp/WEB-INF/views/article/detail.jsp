@@ -46,9 +46,11 @@
 					<span><fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 					 <span style="font-size: 24px;color: red;" onclick="tousuShow();">投诉</span>
 				</div>
+				
 				<div style="font-size: 24">
 					${article.content }
 				</div>
+				
 				<div id="comment">
 					<div class="row" style="margin-top: 10px;">
 						  <div class="col-10">
