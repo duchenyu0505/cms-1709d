@@ -144,6 +144,7 @@
 			
 		}
 		
+		
 		function tousu(){
 			var content = $("#content1").val();
 			$.post("/tousu/add",{content:content,articleId:articleId},function(res){
@@ -155,6 +156,8 @@
 				}
 			})
 		}
+		
+		
 	</script>
 </body>
 </html>
