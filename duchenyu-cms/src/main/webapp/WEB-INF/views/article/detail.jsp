@@ -44,7 +44,6 @@
 				<div style="margin-top: 10px;margin-bottom: 10px;font-weight: bold;color: #777;">
 					<span>${user.nickname }</span> 
 					<span><fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
-					 <span style="font-size: 24px;color: red;" onclick="tousuShow();">投诉</span>
 				</div>
 				
 				<div style="font-size: 24">
@@ -128,31 +127,6 @@
 				}else if(res.errorCode==10000){
 					alert("你还未登录");
 					location.href="/user/login";
-				}
-			})
-		}
-		
-		function tousuShow(){
-			$.post("/user/isLogin",null,function(res){
-				if(res.result){
-					$("#tousuModal").modal('show');
-				}else{
-					alert("未登录，请登录后在投诉");
-					window.location.href="/user/login";
-				}
-			})
-			
-		}
-		
-		
-		function tousu(){
-			var content = $("#content1").val();
-			$.post("/tousu/add",{content:content,articleId:articleId},function(res){
-				if(res.result){
-					alert("投诉成功");
-					$("#tousuModal").modal('hide');
-				}else{
-					alert("投诉失败");
 				}
 			})
 		}
